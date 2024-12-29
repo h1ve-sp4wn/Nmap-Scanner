@@ -1,0 +1,19 @@
+# Use Python 3.9 base image
+FROM python:3.9-slim
+
+# Install system dependencies (e.g., Nmap)
+RUN apt-get update && \
+    apt-get install -y nmap curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install nmap requests
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Python script into the container
+COPY . /app
+
+# Set the default command to run the script
+CMD ["python3", "nmap_scanner.py"]
